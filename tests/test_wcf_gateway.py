@@ -52,8 +52,10 @@ class FakeClient:
 
 class WcfGatewayTests(unittest.TestCase):
     def test_rejects_missing_logged_in_account(self) -> None:
+        client = FakeClient(bot_id="")
         with self.assertRaisesRegex(RuntimeError, "wxid"):
-            WcfGateway(FakeClient(bot_id=""))
+            WcfGateway(client)
+        self.assertTrue(client.cleaned)
 
     def test_delegates_lifecycle(self) -> None:
         client = FakeClient()

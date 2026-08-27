@@ -21,6 +21,7 @@ class WcfGateway:
         self._client = client
         self._bot_id = str(self._client.get_self_wxid() or "")
         if not self._bot_id:
+            self._client.cleanup()
             raise RuntimeError("Cannot determine the logged-in WeChat account wxid")
 
     @property
